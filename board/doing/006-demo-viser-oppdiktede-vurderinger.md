@@ -472,3 +472,15 @@ markeres likevel her siden føringen ber om at avvik synliggjøres:
   og `--dim`→`--mid` i legend) er markert i eget punkt for datakurators godkjenning. Ordlyden
   ellers er ordrett. Klar for datakurator, deretter utvikler.
 - 2026-09-22 PM: UX-spesifikasjonen er mottatt. Sendt til utvikler. Datakurator godkjenner resultatet etterpå, også UX sine to valg for presentasjonen.
+- 2026-09-22 utvikler: Implementert UX-spesifikasjonen i `site/index.html`, kun `.demo`-blokken
+  i `#kommer` og tilhørende CSS. HTML erstattet ordrett med spesifikasjonens markup
+  (`demo-flag` → `demo-bar` → `demo-body` → `legend`, i den rekkefølgen). CSS lagt til/endret
+  nøyaktig som spesifisert: `.demo-flag` (ny), `.demo`-kant endret til `rgba(224,163,74,.35)`
+  (fjernet `var(--line)`, ingen dobbel border-regel), `.row .txt small` endret fra `--dim` til
+  `--mid` + `display:block`/`margin-top:2px`, ny `.row .txt .why`-regel, `.legend` endret fra
+  `--dim` til `--mid` og ny `.legend b`-regel. Ingen nye tokens brukt. Grep av hele filen etter
+  ekte merker/modeller/godkjenningsmerker/årstall (volvo, xc90, besafe, izi, minikid, sirona,
+  axkid, cybex, britax, dualfix, r129, r44, i-size, 20NN) ga ingen treff (ett falskt positivt:
+  "izi" traff i "box-sizing"). Andre tekster på siden (hero, meta, stripe, seksjonstittel,
+  påmelding) er ikke rørt — det er oppgave 008. Nivåfargene (`--ok/--maybe/--none/--no`, `.t-*`)
+  er ikke rørt. Committet lokalt, ikke pushet. Klar for datakurators godkjenning og tester.

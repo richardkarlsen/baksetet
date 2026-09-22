@@ -117,10 +117,25 @@ section.blk{padding:96px 0;border-bottom:1px solid var(--line)}
   color:var(--amber);background:var(--amber-bg);border:1px solid rgba(224,163,74,.28);
   padding:3px 10px;border-radius:4px;vertical-align:middle;
 }
-.demo{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--ink-2);overflow:hidden}
+.demo{position:relative;border:1px solid rgba(224,163,74,.35);border-radius:12px;background:var(--ink-2);overflow:hidden}
 .demo-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .demo-bar p{font-size:14.5px;color:var(--mid)}
 .demo-body{padding:22px 20px}
+
+.demo-flag{
+  display:flex;align-items:flex-start;gap:9px;
+  padding:14px 20px;
+  background:var(--amber-bg);
+  border-bottom:1px solid rgba(224,163,74,.35);
+}
+.demo-flag svg{flex:none;margin-top:2px;color:var(--amber)}
+.demo-flag p{
+  margin:0;
+  font-weight:600;
+  font-size:15.5px;
+  line-height:1.35;
+  color:var(--bone);
+}
 .inert{cursor:pointer}
 .picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
 .pick{background:var(--ink);border:1px solid var(--line-2);border-radius:6px;padding:9px 13px;text-align:left}
@@ -133,7 +148,15 @@ section.blk{padding:96px 0;border-bottom:1px solid var(--line)}
 .row .fig{flex:none;width:64px}
 .row .txt{flex:1;min-width:0}
 .row .txt b{font-weight:500;font-size:15.5px;display:block}
-.row .txt small{color:var(--dim);font-size:13px}
+.row .txt small{display:block;color:var(--mid);font-size:13px;margin-top:2px}
+.row .txt .why{
+  display:block;
+  margin-top:4px;
+  font-size:13px;
+  font-weight:400;
+  line-height:1.45;
+  color:var(--bone);
+}
 .tag{flex:none;font-size:12.5px;padding:4px 11px;border-radius:4px;white-space:nowrap}
 .t-ok{color:var(--ok);background:var(--ok-bg)}
 .t-maybe{color:var(--maybe);background:var(--maybe-bg)}
@@ -143,7 +166,8 @@ section.blk{padding:96px 0;border-bottom:1px solid var(--line)}
 
 .signup-block{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:60px;align-items:start}
 @media(max-width:920px){.signup-block{grid-template-columns:1fr;gap:34px}}
-.legend{padding:16px 20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--dim)}
+.legend{padding:16px 20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--mid)}
+.legend b{color:var(--bone);font-weight:600}
 
 footer{padding:38px 0 56px;font-size:14px;color:var(--dim)}
 .foot-in{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
@@ -219,40 +243,64 @@ footer{padding:38px 0 56px;font-size:14px;color:var(--dim)}
     </div>
 
     <div class="demo">
+      <div class="demo-flag">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 11v5"/>
+          <circle cx="12" cy="8" r=".6" fill="currentColor" stroke="none"/>
+        </svg>
+        <p>Eksempel – ikke en ekte vurdering</p>
+      </div>
       <div class="demo-bar">
         <p>Forhåndsvisning av bilvelgeren</p>
         <span class="kommer">Kommer</span>
       </div>
       <div class="demo-body">
         <div class="picker">
-          <button class="pick inert" type="button"><small>Merke</small><b>Volvo</b></button>
-          <button class="pick inert" type="button"><small>Modell</small><b>XC90</b></button>
-          <button class="pick inert" type="button"><small>Årsmodell</small><b>2016</b></button>
+          <button class="pick inert" type="button"><small>Merke</small><b>Eksempelmerke</b></button>
+          <button class="pick inert" type="button"><small>Modell</small><b>Eksempelbil</b></button>
+          <button class="pick inert" type="button"><small>Årsmodell</small><b>20XX</b></button>
           <button class="pick inert" type="button"><small>Plassering</small><b>Bak, ytre</b></button>
         </div>
 
         <div class="row">
           <div class="fig"></div>
-          <div class="txt"><b>BeSafe iZi Modular X1</b><small>Bakovervendt · i-Size · ISOFIX med støtteben</small></div>
+          <div class="txt">
+            <b>Sete A</b>
+            <small>Bakovervendt · ISOFIX</small>
+            <small class="why">Prøvemontert i denne bilen, på denne plassen.</small>
+          </div>
           <span class="tag t-ok">Bekreftet</span>
         </div>
         <div class="row">
           <div class="fig"></div>
-          <div class="txt"><b>Axkid Minikid 4</b><small>Bakovervendt · R129 · bilbelte med støtteben</small></div>
+          <div class="txt">
+            <b>Sete B</b>
+            <small>Bakovervendt · bilbelte med støtteben</small>
+            <small class="why">Utledet fra mål, ikke prøvemontert.</small>
+          </div>
           <span class="tag t-maybe">Sannsynlig</span>
         </div>
         <div class="row">
           <div class="fig"></div>
-          <div class="txt"><b>Cybex Sirona Gi i-Size</b><small>Vendbar · i-Size · ISOFIX med støtteben</small></div>
+          <div class="txt">
+            <b>Sete C</b>
+            <small>Fremovervendt · ISOFIX</small>
+            <small class="why">Vi har ingen data om dette setet i denne bilen ennå.</small>
+          </div>
           <span class="tag t-none">Ikke testet</span>
         </div>
         <div class="row">
           <div class="fig"></div>
-          <div class="txt"><b>Britax Römer Dualfix</b><small>Støttebenet lander i gulvboksen på denne plassen</small></div>
+          <div class="txt">
+            <b>Sete D</b>
+            <small>Bakovervendt · ISOFIX med støtteben</small>
+            <small class="why">For lite plass bakovervendt: setet treffer forsetet. Kilde: prøvemontering.</small>
+          </div>
           <span class="tag t-no">Frarådes</span>
         </div>
       </div>
-      <p class="legend">Merkelappene viser hvor godt vi vet det. Bekreftet betyr testet av produsenten, sannsynlig betyr regnet ut fra våre egne mål. Vi gjetter aldri, og vi skjuler ikke når vi mangler data.</p>
+      <p class="legend">Merkelappene viser hvor sikre vi er, ikke bare om setet passer. <b>Bekreftet:</b> prøvemontert i akkurat denne bilen, eller oppført av produsenten i deres egen liste over biler setet passer i. <b>Sannsynlig:</b> utledet fra mål eller en nært beslektet bil, men ikke prøvd. Vi merker det alltid som utledet. <b>Ikke testet:</b> vi vet ikke. Det betyr verken at setet passer eller at det ikke passer. <b>Frarådes:</b> vi kjenner til et problem. Vi sier alltid hva problemet er og hvor vi har det fra. Uansett nivå: prøvemonter setet og følg bruksanvisningen.</p>
     </div>
   </div>
 </section>
