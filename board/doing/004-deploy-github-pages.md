@@ -41,3 +41,19 @@ Eget domene og DNS. Se oppgave 005.
 ## Logg
 
 - 2026-09-09 PM: opprettet
+- 2026-09-22 PM: eier prioriterte denne først. Fjernet duplikat i backlog.
+  Status: git er allerede initialisert (commit `58db579`), ingen remote.
+  Siden ligger i `site/`, ikke i rota. Pages fra branch støtter bare `/` eller
+  `/docs`, så utvikler må løse det (f.eks. Pages via Actions). `gh` er ikke
+  installert. Venter på at eier oppretter repo / oppgir GitHub-bruker.
+- 2026-09-22 PM: eier opprettet tomt offentlig repo
+  https://github.com/richardkarlsen/baksetet. Flyttet til doing, delegert til utvikler.
+- 2026-09-22 utvikler: La til `.gitignore`, `README.md` og
+  `.github/workflows/pages.yml` (kun offisielle actions/checkout,
+  actions/configure-pages, actions/upload-pages-artifact, actions/deploy-pages;
+  publiserer `site/` uendret). Byttet lokal branch til `main`, lagt til
+  `origin` (https://github.com/richardkarlsen/baksetet.git), committet og
+  pushet. Verifisert at stiene i `site/index.html` allerede er relative uten
+  ledende skråstrek — ingen endring nødvendig der. Bekreftet at repoet er
+  offentlig via API. Pages er ikke aktivert ennå (Settings → Pages → Source:
+  GitHub Actions gjenstår, kun eier kan gjøre det) — se sammendrag til PM.
