@@ -40,3 +40,8 @@ Implementasjon i index.html. Egen oppgave.
   altså ikke oppfylt i dag. Ta hensyn til dette.
 - 2026-09-22 PM: datakurator påpeker (006) at «Ikke testet» (`--none`) ser nedtonet ut
   og har lavere kontrast enn de andre. Den skal være nøytral, ikke dempet.
+- 2026-09-22 PM: datakurator varsler veto mot å vise ekte kompatibilitetsdata før
+  «Ikke testet» har minst samme kontrast som de andre nivåene. I dag er merkelappen
+  ca. 3,9:1, mot 4,8–6,0:1 for de andre. Oppgaven blokkerer altså ekte data.
+- 2026-09-22 PM: tester (006) fant at `.pick small` (feltnavnene i bilvelgeren) bruker `--dim` på `--ink`,
+  som gir ca. 3,3:1, under AA. Tokenet `--dim` bør vurderes samlet her.

@@ -28,15 +28,15 @@ bestemmer eier (se logg).
 
 ## Akseptansekriterier
 
-- [ ] Ingen ekte, navngitt kombinasjon av bil og sete vises med et tillitsnivå
+- [x] Ingen ekte, navngitt kombinasjon av bil og sete vises med et tillitsnivå
       som ikke har en kilde i datagrunnlaget
-- [ ] Hvis det fortsatt vises eksempler: de er entydig markert som oppdiktede
+- [x] Hvis det fortsatt vises eksempler: de er entydig markert som oppdiktede
       eksempler, både med tekst og visuelt, og de vises aldri i samme
       presentasjon som ekte data
-- [ ] Forklaringsteksten til tillitsnivåene samsvarer i innhold med definisjonene
+- [x] Forklaringsteksten til tillitsnivåene samsvarer i innhold med definisjonene
       i CLAUDE.md, godkjent av datakurator
-- [ ] Datakurator har godkjent endelig versjon før den går til review
-- [ ] Mobil (~380px) fungerer
+- [x] Datakurator har godkjent endelig versjon før den går til review
+- [x] Mobil (~380px) fungerer
 
 ## Utenfor scope
 
@@ -485,3 +485,38 @@ markeres likevel her siden føringen ber om at avvik synliggjøres:
   påmelding) er ikke rørt — det er oppgave 008. Nivåfargene (`--ok/--maybe/--none/--no`, `.t-*`)
   er ikke rørt. Committet lokalt, ikke pushet. Klar for datakurators godkjenning og tester.
 - 2026-09-22 PM: lest diffen i 5e41c47. Den ser ut til å følge spesifikasjonen. Flyttet til review. Datakurator (godkjenning) og tester jobber parallelt. Ikke pushet.
+- 2026-09-22 datakurator: GODKJENT (5e41c47, innhold og data). Føringene 1–5 er fulgt: alle
+  tekster ordrett (rader, bilvelger, forklaringstekst, «Eksempel – ikke en ekte vurdering»),
+  ingen ekte merker, modeller, godkjenningsmerker eller årstall i filen (grep + gjennomlesning),
+  merkingen står først i DOM, 15,5px `--bone` på `--amber-bg` (ca. 12:1), samme størrelse som
+  radnavnene, og amber-kant på hele boksen. UX sine to valg godkjennes: (a) forklaringen som ett
+  avsnitt med nivånavn i fet skrift, ordlyd kontrollert identisk; (b) `--dim` → `--mid` i
+  forklaring og undertekst (ca. 3,1:1 → 6,3:1). «Ikke testet»-raden har lik oppbygning, lik
+  «hvorfor»-linje og lik plassering som de andre. Forbehold, ikke blokkerende for 006: selve
+  nivåmerket «Ikke testet» (`--none` på `--none-bg`) har ca. 3,9:1, lavest av de fire (Bekreftet
+  6,0, Sannsynlig 5,6, Frarådes 4,8) og under 4,5:1. Det er utenfor scope her (001), og 006 gjør
+  det ikke verre. Men: jeg vil nedlegge veto mot at ekte fit-data vises før 001 har løftet
+  «Ikke testet» til minst samme kontrast som de andre nivåene. Teksten rett over demoen
+  («få stolene som passer») er fortsatt ja/nei-språk, det håndteres i 008.
+- 2026-09-22 tester: Testet lokal commit 5e41c47 (site/index.html, ikke pushet, ikke rettet av
+  meg). Alle akseptansekriterier OK: ingen ekte merker/modeller/godkjenningsmerker/årstall (grep
+  av hele filen, kun falskt positivt i "box-sizing"), eksemplene er entydig merket (demo-flag +
+  amber-kant), forklaringsteksten samsvarer med CLAUDE.md og er ordrett identisk med datakurators
+  tabell/sitat, datakurator har nå godkjent (se linjen over), mobil ~380px fungerer. DOM-rekkefølge
+  demo-flag → demo-bar → demo-body → legend bekreftet i markup, SVG-ikonet har
+  aria-hidden="true" focusable="false". Kontrast beregnet mot --ink-2: .demo-flag p / .why /
+  .row txt b (--bone) ≈15,3:1; .row txt small / .legend (--mid) ≈6,3:1; .demo-flag-bakgrunnen
+  (amber-bg over ink-2) mot --bone-tekst ≈12:1 — alle over WCAG AA 4,5:1, tallene i
+  UX-spesifikasjonen stemmer. «Ikke testet»-raden (Sete C) har identisk markup/styling som de
+  tre andre, ikke mindre synlig. Diffen rører kun .demo-blokken og tilhørende CSS; hero, meta,
+  stripe, påmelding og nivåfargene (--ok/--maybe/--none/--no) er uendret (bekreftet i git diff).
+  Ingen nye eksterne avhengigheter. Mobil: et første headless-skjermbilde ved 380px viste
+  tilsynelatende avkuttet tekst i nav/hero/overskrift, men direkte DOM-måling (iframe, egen
+  scratch-fil, scrollWidth/clientWidth + boundingClientRect på alle elementer) viste INGEN
+  elementer med høyrekant utenfor viewport og scrollWidth == clientWidth — vurderes som en
+  artefakt i skjermbildeverktøyet (sannsynlig font-swap/DPI-effekt), ikke en reell overflow-feil.
+  Anbefaler at PM får noen til å dobbeltsjekke på en ekte mobil ved anledning, men blokkerer ikke
+  006 på dette. Funn utenfor oppgaven (ikke blokkerende, til PM): (1) `.pick small`
+  (bilvelgerens feltnavn "Merke"/"Modell" osv.) bruker fortsatt `--dim` på `--ink`, beregnet
+  kontrast ≈3,3:1 — under AA, men uendret av denne oppgaven og ikke fit-data. RESULTAT: bestått.
+- 2026-09-22 PM: datakurator GODKJENT, tester bestått. Kriteriene er krysset av, flyttet til done og publisert. Tester fant i tillegg at feltnavnene i bilvelgeren (`.pick small`) har lav kontrast. Det er lagt i 001.
