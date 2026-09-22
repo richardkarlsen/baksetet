@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<title>001 — tillitsnivå-tokens, gråtonebevis (K4)</title>
+<style>
+  :root{
+    --ink:#141210;
+    --ink-2:#1D1A17;
+    --bone:#F4F0EA;
+    --mid:#A39B92;
+
+    --ok:        #7FD16A;
+    --ok-bg:     rgba(127,209,106,.16);
+    --ok-border: rgba(107,190,85,.55);
+
+    --maybe:        #8FB4EA;
+    --maybe-bg:     rgba(143,180,234,.15);
+    --maybe-border: rgba(118,155,214,.65);
+
+    --none:        #C2BBAF;
+    --none-bg:     rgba(194,187,175,.13);
+    --none-border: rgba(163,155,146,.65);
+
+    --no:        #F2937D;
+    --no-bg:     rgba(242,147,125,.16);
+    --no-border: rgba(228,115,90,.70);
+  }
+  *{box-sizing:border-box}
+  html{ filter: grayscale(1); } /* K4: gråtone via CSS, ikke manuelt utvalgte gråtoner */
+  body{
+    margin:0;background:#000;color:var(--bone);
+    font-family:Arial,Helvetica,sans-serif;
+    padding:20px;
+  }
+  .caption{font-size:13px;color:#bbb;margin:0 0 10px 2px}
+  .swatch{padding:26px 24px;border-radius:4px;margin-bottom:22px}
+  .swatch.on-ink{background:var(--ink)}
+  .swatch.on-ink2{background:var(--ink-2)}
+  .rowlabel{font-size:11px;color:var(--mid);margin:0 0 8px 2px;text-transform:uppercase;letter-spacing:.06em}
+  .taglist{display:flex;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+  .taglist:last-child{margin-bottom:0}
+
+  .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;
+    font-weight:600;letter-spacing:.01em;line-height:1;
+    padding:4px 10px 4px 8px;border-radius:6px;white-space:nowrap;font-family:Arial,Helvetica,sans-serif}
+  .tag svg{flex:none;width:14px;height:14px}
+  .tag-lg{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;
+    font-weight:600;letter-spacing:.01em;line-height:1.1;
+    padding:8px 14px 8px 11px;border-radius:8px;white-space:nowrap;font-family:Arial,Helvetica,sans-serif}
+  .tag-lg svg{flex:none;width:18px;height:18px}
+
+  .t-ok{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok-border)}
+  .t-maybe{color:var(--maybe);background:var(--maybe-bg);border:1px dashed var(--maybe-border)}
+  .t-none{color:var(--none);background:var(--none-bg);border:1.5px solid var(--none-border)}
+  .t-no{color:var(--no);background:var(--no-bg);border:1.5px solid var(--no-border)}
+</style>
+</head>
+<body>
+
+<div class="swatch on-ink">
+  <p class="caption">Bakgrunn: --ink (#141210)</p>
+
+  <p class="rowlabel">Liste — 14px</p>
+  <div class="taglist">
+    <span class="tag t-ok">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.6"/><path d="M6.4 10.3l2.5 2.4 4.7-5.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Bekreftet
+    </span>
+    <span class="tag t-maybe">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2.8 2.4"/><path d="M5 11.5C6.4 8 8.6 8 10 11.5S13.6 15 15 11.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Sannsynlig · utledet
+    </span>
+    <span class="tag t-none">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.6" fill="none" stroke="currentColor" stroke-width="2.8"/></svg>
+      Ikke testet
+    </span>
+    <span class="tag t-no">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.1L17.6 16.3A1 1 0 0 1 16.73 17.8H3.27A1 1 0 0 1 2.4 16.3Z" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 8v3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="14.2" r="1" fill="currentColor"/></svg>
+      Frarådes
+    </span>
+  </div>
+
+  <p class="rowlabel">Detalj — 18px</p>
+  <div class="taglist">
+    <span class="tag-lg t-ok">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.6"/><path d="M6.4 10.3l2.5 2.4 4.7-5.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Bekreftet
+    </span>
+    <span class="tag-lg t-maybe">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2.8 2.4"/><path d="M5 11.5C6.4 8 8.6 8 10 11.5S13.6 15 15 11.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Sannsynlig – utledet, ikke verifisert
+    </span>
+    <span class="tag-lg t-none">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.6" fill="none" stroke="currentColor" stroke-width="2.8"/></svg>
+      Ikke testet
+    </span>
+    <span class="tag-lg t-no">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.1L17.6 16.3A1 1 0 0 1 16.73 17.8H3.27A1 1 0 0 1 2.4 16.3Z" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 8v3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="14.2" r="1" fill="currentColor"/></svg>
+      Frarådes
+    </span>
+  </div>
+</div>
+
+<div class="swatch on-ink2">
+  <p class="caption">Bakgrunn: --ink-2 (#1D1A17)</p>
+
+  <p class="rowlabel">Liste — 14px</p>
+  <div class="taglist">
+    <span class="tag t-ok">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.6"/><path d="M6.4 10.3l2.5 2.4 4.7-5.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Bekreftet
+    </span>
+    <span class="tag t-maybe">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2.8 2.4"/><path d="M5 11.5C6.4 8 8.6 8 10 11.5S13.6 15 15 11.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Sannsynlig · utledet
+    </span>
+    <span class="tag t-none">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.6" fill="none" stroke="currentColor" stroke-width="2.8"/></svg>
+      Ikke testet
+    </span>
+    <span class="tag t-no">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.1L17.6 16.3A1 1 0 0 1 16.73 17.8H3.27A1 1 0 0 1 2.4 16.3Z" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 8v3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="14.2" r="1" fill="currentColor"/></svg>
+      Frarådes
+    </span>
+  </div>
+
+  <p class="rowlabel">Detalj — 18px</p>
+  <div class="taglist">
+    <span class="tag-lg t-ok">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.6"/><path d="M6.4 10.3l2.5 2.4 4.7-5.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Bekreftet
+    </span>
+    <span class="tag-lg t-maybe">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2.8 2.4"/><path d="M5 11.5C6.4 8 8.6 8 10 11.5S13.6 15 15 11.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Sannsynlig – utledet, ikke verifisert
+    </span>
+    <span class="tag-lg t-none">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.6" fill="none" stroke="currentColor" stroke-width="2.8"/></svg>
+      Ikke testet
+    </span>
+    <span class="tag-lg t-no">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.1L17.6 16.3A1 1 0 0 1 16.73 17.8H3.27A1 1 0 0 1 2.4 16.3Z" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 8v3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="14.2" r="1" fill="currentColor"/></svg>
+      Frarådes
+    </span>
+  </div>
+</div>
+
+</body>
+</html>

@@ -33,18 +33,40 @@ Implementasjon i index.html. Egen oppgave.
 
 ## UX-leveranse
 
-Kontrast er beregnet mot den faktiske renderte bakgrunnen (nivåfargen lagt som
-`rgba(...)`-tone over `--ink-2`, slik merkelappene faktisk vises i dag inni
-`.demo`), ikke mot `--ink-2` rått. Det er derfor tallene her ikke er identiske
-med en enkel oppslag av tekstfarge mot `--ink-2`. Alle beregninger er WCAG
-relativ luminans, alfa-komposittert i sRGB (slik nettlesere komposittere enkel
-`rgba()`-blanding).
+**Revidert etter datakurators veto (K1–K5), oppdatert i denne seksjonen —
+ingen ny seksjon lagt til ved siden av.** Fem endringer fra forrige versjon:
+«Sannsynlig» får synlig «utledet»-tekst i selve merkelappen (K1), ikonene for
+«Sannsynlig» og «Ikke testet» er tegnet om så de ikke flyter sammen ved 14px
+(K2), kanttabellen er regnet på nytt med alfa inkludert og kantfargene er
+justert til reelt ≥3:1 (K3), rendret gråtonebevis er lagt ved som PNG under
+`board/assets/001/` (K4), og haken er skrevet inn som reservert for Bekreftet
+alene (K5). I tillegg er ordet «trygg» fjernet fra begrunnelsen for Bekreftet.
+Fargene, tekstkontrasten og `--dim` er uendret, jf. datakurators tilbakemelding.
+
+**Feilen datakurator fant i K3:** kanttabellen i forrige versjon sammenlignet
+den ugjennomsiktige HEX-fargen mot bakgrunnen, ikke fargen slik den faktisk
+rendres med sin alfaverdi lagt over bakgrunnen. Det ga tall som var 2–3x for
+høye (f.eks. 6,32:1 oppgitt mot reelt 2,83:1 for «Ikke testet»). Tabellen i
+pkt. 4 under er nå regnet riktig: `rgba(nivåfarge, alfa)` komposittert i sRGB
+over `--ink`/`--ink-2`, deretter WCAG-kontrast av det komposittérte resultatet
+mot samme bakgrunn — samme metode som allerede ble brukt riktig for
+tekst/ikon-kontrasten (som datakurator bekreftet stemte, ±0,03).
+
+Kontrast for tekst/ikon er beregnet mot den faktiske renderte bakgrunnen
+(nivåfargen lagt som `rgba(...)`-tone over `--ink-2`, slik merkelappene
+faktisk vises i dag inni `.demo`), ikke mot `--ink-2` rått. Det er derfor
+tallene her ikke er identiske med en enkel oppslag av tekstfarge mot
+`--ink-2`. Alle beregninger er WCAG relativ luminans, alfa-komposittert i
+sRGB (slik nettlesere komposittere enkel `rgba()`-blanding).
 
 Grayton-testen viser at ren lysstyrke ikke skiller de fire nivåene godt nok —
-det gjelder også dette forslaget (se pkt. 5). Derfor bærer **form, kantstil og
-fyllgrad hovedansvaret** for skillet, ikke farge/lysstyrke. Sirkel vs. trekant
-og heltrukket vs. stiplet vs. prikket kant skal kunne skilles selv om skjermen
-er helt avmettet.
+det gjelder også dette forslaget (se pkt. 5). Derfor bærer **ikonets form og
+tegn, sammen med kantens stil,** hovedansvaret for skillet, ikke
+farge/lysstyrke. Fyllgrad er tatt ut som eget påstått signal (K3) bortsett
+fra ett reelt tilfelle: Ikke testet har ingen fyll i det hele tatt, mens de
+tre andre har det — det er en binær, synlig forskjell, ikke en gradering.
+Sirkel vs. trekant, og hake vs. bølge vs. tom ring, skal kunne skilles selv
+om skjermen er helt avmettet.
 
 ### 1. CSS-variabler
 
@@ -57,22 +79,22 @@ bone/amber beholdes uendret):
 /* Bekreftet */
 --ok:        #7FD16A;
 --ok-bg:     rgba(127,209,106,.16);
---ok-border: rgba(107,190,85,.55);
+--ok-border: rgba(107,190,85,.55);   /* uendret — ga allerede ≥3:1 */
 
 /* Sannsynlig */
 --maybe:        #8FB4EA;
 --maybe-bg:     rgba(143,180,234,.15);
---maybe-border: rgba(118,155,214,.5);
+--maybe-border: rgba(118,155,214,.65); /* K3: alfa opp fra .5 → reelt ≥3:1 */
 
 /* Ikke testet */
 --none:        #C2BBAF;
 --none-bg:     rgba(194,187,175,.13);
---none-border: rgba(163,155,146,.55);
+--none-border: rgba(163,155,146,.65); /* K3: alfa opp fra .55 → reelt ≥3:1 */
 
 /* Frarådes */
 --no:        #F2937D;
 --no-bg:     rgba(242,147,125,.16);
---no-border: rgba(228,115,90,.6);
+--no-border: rgba(228,115,90,.70);    /* K3: alfa opp fra .6 → reelt ≥3:1 */
 
 /* Justert — se begrunnelse under */
 --dim: #8F877C; /* var: #6E665E */
@@ -91,7 +113,7 @@ unntaksregel — den arver bare det oppdaterte tokenet.
 merkelappen (ikonet bruker `currentColor` — ingen egen ikonfarge-variabel
 trengs, det arver nivåfargen).
 
-**Bekreftet** — sirkel, heltrukket kant, fylt indre, hake. (Trygg, avsluttet.)
+**Bekreftet** — sirkel, heltrukket kant, fylt indre, hake. (Stødig, avsluttet.)
 ```html
 <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true">
   <circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.6"/>
@@ -99,20 +121,34 @@ trengs, det arver nivåfargen).
 </svg>
 ```
 
-**Sannsynlig** — sirkel, stiplet kant, svakt fylt, bølgelinje ("omtrent").
+**Sannsynlig — revidert (K2)** — sirkel, stiplet kant, svakt fylt, tydelig
+bølge ("omtrent"/"≈"). Forrige versjon hadde en bølge på ca. 1,65 enheter
+topp-bunn i viewBox 20 — ved 14px ble det under 1,2px, og bølgen så ut som en
+rett strek, umulig å skille fra «Ikke testet». Ny bølge går fra y=8 til y=15,
+altså 7 enheter i viewBox 20. Ved 14px (skala 0,7) blir det ca. 4,9px
+topp-bunn — godt over K2s krav på ca. 2px. Strøket er også gjort tykkere
+(1,6 → 2,0) for lik visuell tyngde som de andre ikonene.
 ```html
 <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true">
-  <circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.6 2.2"/>
-  <path d="M5.7 10.6c.9-1.1 1.9-1.1 2.8 0s1.9 1.1 2.8 0 1.9-1.1 2.8 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2.8 2.4"/>
+  <path d="M5 11.5C6.4 8 8.6 8 10 11.5S13.6 15 15 11.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 </svg>
 ```
 
-**Ikke testet** — sirkel, prikket kant, IKKE fylt, rett strek ("ingen verdi
-registrert" — bevisst nøytral, ikke spørsmålstegn som kan lese som forvirring).
+**Ikke testet — revidert (K2)** — kraftig, HEL, tom ring. Ingen strek, ingen
+prikker, ingen tegn inni. Forrige versjon (prikket kant + vannrett strek) er
+forkastet av to grunner datakurator påpekte: (1) en sirkel med vannrett strek
+gjenbruker formen til det norske skiltet «innkjøring forbudt» og kan derfor
+leses som et negativt svar vi ikke har grunnlag for, og (2) tynn prikket kant
+har minst "blekk" av de fire ikonene og kan se deaktivert/svak ut — stikk i
+strid med at «Ikke testet» skal være nøytral, ikke dempet. Løsningen er en
+tom ring uten tegn, men med kraftig strøk (stroke-width 2,8 — tykkere enn
+noen av de andre ikonenes enkeltstrøk), slik at den ikke er "svakere" enn de
+andre rent visuelt. Fyllgrad null er meningsbærende her: en tom form for et
+tomt datapunkt.
 ```html
 <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true">
-  <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="0.2 3.4" stroke-linecap="round"/>
-  <path d="M6.8 10h6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="10" cy="10" r="7.6" fill="none" stroke="currentColor" stroke-width="2.8"/>
 </svg>
 ```
 
@@ -129,10 +165,36 @@ silhuett), fylt, tykkere kant, utropstegn.
 Alle ikoner er dekorative (`aria-hidden="true"`) — teksten i merkelappen
 ("Bekreftet" osv.) er det tilgjengelige navnet, ikke ikonet.
 
+**K5 — krav: haken (fylt sirkel + hakemerke) er reservert for Bekreftet.**
+Ingen annet ikon, logo eller UI-element på baksetet.no skal bruke en hake i
+lukket ramme i `currentColor`. Datakurator har påpekt at forslaget til logo i
+oppgave 009 bruker nøyaktig samme form (enkel hake i en lukket ramme), noe
+som ville gjort at hver side har et "Bekreftet"-merke i navigasjonen før
+brukeren har valgt bil, og dermed svekket hakens verdi som eget signal i
+tillitsnivåene. Dette kravet gjelder 009 og enhver senere oppgave, ikke bare
+denne. 001 er ikke selv blokkert av logokonflikten.
+
 ### 3. Etiketter og merkelappens anatomi
 
 Etikettekst uendret: **Bekreftet**, **Sannsynlig**, **Ikke testet**,
-**Frarådes**.
+**Frarådes**. Nivånavnene endres ikke.
+
+**K1 — «Sannsynlig» skal alltid vise at svaret er utledet, som synlig tekst i
+selve merkelappen** (ikke tooltip), i tråd med CLAUDE.md («Sannsynlig ...
+Skal alltid merkes som utledet»). Dette gjelder kun etiketten for Sannsynlig
+— de tre andre er uendret:
+
+| Visning | Etikettekst for Sannsynlig |
+|---|---|
+| Liste (`.tag`) | `Sannsynlig · utledet` |
+| Detalj (`.tag-lg`) | `Sannsynlig – utledet, ikke verifisert` |
+
+Hele etiketten (hovedord + tillegg) har samme farge og vekt — ingen del av
+teksten er dempet eller mindre synlig enn resten, slik at kontrasttabellen i
+pkt. 4 gjelder uendret for hele strengen. `.tag` sitt `white-space:nowrap`
+bør revurderes av utvikler for `.t-maybe` spesifikt (lengre tekst), enten
+ved å tillate linjebryting eller ved å teste at pillen ikke klipper teksten
+på smale skjermer — dette er en implementasjonsdetalj, ikke et tokenvalg.
 
 | Egenskap | Liste (`.tag`) | Detalj (`.tag-lg`) |
 |---|---|---|
@@ -153,8 +215,16 @@ tillegg til ikon):
 |---|---|---|
 | Bekreftet | 1px | solid |
 | Sannsynlig | 1px | dashed |
-| Ikke testet | 1.5px | dotted |
+| Ikke testet | 1.5px | solid *(endret fra dotted, K2/K3 — se begrunnelse)* |
 | Frarådes | 1.5px | solid |
+
+«Ikke testet» sin pillkant er endret fra dotted til solid for å stemme
+overens med det reviderte ikonet (kraftig, hel ring — pkt. 2) og for å ikke
+motsi seg selv: en tynn prikket pillkant sammen med et kraftig ikon ville gitt
+et blandet signal om hvor "tung" merkelappen skal oppleves. Solid kant med
+0,5px mer bredde enn Bekreftet/Sannsynlig gir «Ikke testet» en tydelig egen
+identitet (bredere, men uten stiplingsrytme) uten å bruke dotted/dashed to
+ganger.
 
 CSS-oppskrift for utvikler (erstatter dagens `.tag`/`.t-ok` osv.):
 
@@ -168,7 +238,7 @@ CSS-oppskrift for utvikler (erstatter dagens `.tag`/`.t-ok` osv.):
 
 .t-ok{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok-border)}
 .t-maybe{color:var(--maybe);background:var(--maybe-bg);border:1px dashed var(--maybe-border)}
-.t-none{color:var(--none);background:var(--none-bg);border:1.5px dotted var(--none-border)}
+.t-none{color:var(--none);background:var(--none-bg);border:1.5px solid var(--none-border)}
 .t-no{color:var(--no);background:var(--no-bg);border:1.5px solid var(--no-border)}
 ```
 
@@ -200,22 +270,34 @@ dette er *ikke* det som bærer synligheten (se merknad under tabellen):
 | Ikke testet | 1,30:1 | 1,28:1 |
 | Frarådes | 1,33:1 | 1,32:1 |
 
-Kanten (border) mot sidebakgrunnen, som er det som faktisk avgrenser
-merkelappen som form (WCAG 1.4.11, ikke-tekst, krav ≥3:1):
+**K3 — rettet.** Forrige versjon av denne tabellen var feil: den sammenlignet
+den ugjennomsiktige nivåfargen mot bakgrunnen og ignorerte at kanten faktisk
+tegnes med `rgba(..., alfa)` — altså en annen, svakere farge enn den
+ugjennomsiktige. Datakurators kontrollberegning (2,50–3,17:1) var riktig, min
+opprinnelige tabell (5,7–8,1:1) var det ikke. Tallene under er kanten slik
+den faktisk rendres — `rgba()`-verdien komposittert over sidebakgrunnen —
+mot samme bakgrunn, med de justerte alfaverdiene fra pkt. 1 (K3, løsning a:
+alle kanter løftet til reelt ≥3:1):
 
-| Nivå | kant mot `--ink-2` | kant mot `--ink` |
-|---|---|---|
-| Bekreftet | 7,52:1 | 8,12:1 |
-| Sannsynlig | 6,13:1 | 6,61:1 |
-| Ikke testet | 6,32:1 | 6,82:1 |
-| Frarådes | 5,69:1 | 6,14:1 |
+| Nivå | kant mot `--ink-2` (reell, med alfa) | kant mot `--ink` (reell, med alfa) | ≥3:1? |
+|---|---|---|---|
+| Bekreftet | 3,16:1 | 3,26:1 | Ja (alfa uendret, .55, var allerede over) |
+| Sannsynlig | 3,35:1 | 3,46:1 | Ja (alfa løftet .5 → .65) |
+| Ikke testet | 3,44:1 | 3,55:1 | Ja (alfa løftet .55 → .65) |
+| Frarådes | 3,42:1 | 3,59:1 | Ja (alfa løftet .6 → .70) |
 
-**Merknad:** den svakt fargede fyll-tonen alene skiller seg lite fra
-sidebakgrunnen (rundt 1,3:1) — det er bevisst, for å unngå fargede "klosser"
-som bryter med den mørke, rolige paletten. Det er **kanten** som avgrenser
-formen (5,7–8,1:1, godt over AA-kravet på 3:1) og **ikonet + teksten** som
-bærer lesbarheten (5,7–7,7:1, godt over 4,5:1). Fyll-tonen er en svak
-signal-forsterkning, ikke en bærende kontrastkilde.
+Alle fire kanter oppfyller nå WCAG 1.4.11 (ikke-tekst, ≥3:1) mot både `--ink`
+og `--ink-2`, med 0,16–0,46 margin. Marginen er bevisst holdt liten (ikke
+presset til 5–6:1 slik forrige, feilaktige tabell antydet) — å skru alfaen
+mye høyere ville gjort kanten til en tydelig fargeflate og brutt med "ingen
+neon"-kravet i CLAUDE.md. Kanten er dermed en reell, men behersket,
+formavgrenser — ikke det primære skillesignalet. Det primære skillesignalet
+er fortsatt ikonet (form/fyll/tegn), jf. pkt. 5.
+
+Merkelappens bakgrunnstone (fyllet) er separat fra kanten og bæres ikke som
+et eget kontrastsignal — den er en svak fargeforsterkning (~1,3:1 mot
+sidebakgrunnen, tabellen over), ikke en avgrensning. Det er kanten (nå ≥3:1)
+som avgrenser formen, og ikonet + teksten (5,7–7,7:1) som bærer lesbarheten.
 
 `--dim` mot de tre bakgrunnene (erstatter dagens 3,3:1-avvik):
 
@@ -232,60 +314,228 @@ testeren brukte i 004) for hvert nivås tekst/ikon-farge:
 
 | Nivå | WCAG-luminans | Gråtoneverdi (0–255) |
 |---|---|---|
-| Bekreftet | 0,378 | 173 |
-| Sannsynlig | 0,375 | 175 |
-| Ikke testet | 0,466 | 188 |
-| Frarådes | 0,352 | 173 |
+| Bekreftet | 0,512 | 173 |
+| Sannsynlig | 0,444 | 175 |
+| Ikke testet | 0,501 | 188 |
+| Frarådes | 0,412 | 173 |
+
+**Rettet (K3):** WCAG-luminanskolonnen over var feil i forrige versjon
+(0,378/0,375/0,466/0,352). Datakurators kontrollberegning var riktig
+(Bekreftet 0,512, Ikke testet 0,501); tallene over er nå kontrollregnet på
+nytt og stemmer med det. Gråtoneverdiene (0–255) var allerede riktige og er
+uendret.
 
 **Ærlig vurdering:** disse ligger fortsatt tett (173–188 av 255) — å presse
 lysstyrken lenger fra hverandre ville enten dratt en av fargene under AA-
 kravet eller tvunget frem en falsk hierarki-følelse (som om ett nivå er
 "viktigere" enn et annet rent visuelt, noe ingen av nivåene skal være).
 Derfor skiller ikke dette forslaget nivåene primært på lysstyrke. Slik
-skilles de i ren gråtone, kun via form:
+skilles de i ren gråtone, i hovedsak via form/ikon, med kanten (nå reelt
+≥3:1, pkt. 4) som sekundær forsterkning:
 
-- **Bekreftet**: sirkel, heltrukket tynn kant, fylt midtflate, hake-tegn.
-- **Sannsynlig**: sirkel, stiplet kant (segmenter), svak fyll, bølgelinje.
-- **Ikke testet**: sirkel, prikket kant (tette prikker — annen rytme enn
-  Sannsynlig sin stipling), ingen fyll (tom), rett vannrett strek.
+- **Bekreftet**: sirkel, heltrukket kant, fylt midtflate, hake-tegn.
+- **Sannsynlig**: sirkel, stiplet kant, svakt fylt, tydelig bølge/"≈"
+  (revidert i K2 — se pkt. 2 for hvorfor forrige bølge var for flat).
+- **Ikke testet**: sirkel, hel kant men kraftigere strøk enn de andre, INGEN
+  fyll, INGEN tegn inni (revidert i K2 — forrige prikkede kant + rett strek
+  er forkastet, se pkt. 2 for begrunnelse).
 - **Frarådes**: trekant — eneste ikke-runde silhuett — tykk kant, fylt,
   utropstegn.
 
-Bekreftet og Sannsynlig kan ikke forveksles selv i gråtone: heltrukket kant +
-fylt + hake vs. stiplet kant + nesten tom + bølgelinje er to helt ulike
-strekmønstre på nært hold, og formen er sirkel i begge, så det er kantstil +
-fyllgrad + tegn som gjør jobben, ikke fargen.
+**Om fyllgrad som signal:** datakurator påpekte at forskjellen i
+fyll-opasitet mellom Bekreftet (0,18) og Sannsynlig (0,12) er reell i tall,
+men ikke synlig nok ved 14px til å regnes som et eget skillesignal. Det
+trekkes derfor ut av begrunnelsen: skillet mellom Bekreftet og Sannsynlig
+bæres av **haken mot bølgen** (ulikt tegn) og heltrukket mot stiplet kant —
+ikke av fyllgrad. Skillet mellom Sannsynlig og Ikke testet bæres nå av at
+Ikke testet ikke har noe tegn inni i det hele tatt, mot Sannsynligs synlige
+bølge, samt stiplet mot hel kant. Se K4-bildene under for hvordan dette
+faktisk ser ut, ikke bare beskrivelsen.
+
+**K4 — rendret bevis.** Skjermbilder av alle fire merkelapper, i gråtone
+(CSS `filter:grayscale(1)`, ikke manuelt valgte gråtoner), i 14px (liste) og
+18px (detalj), på både `--ink` og `--ink-2`, ved 1x og 2x pikseltetthet,
+rendret med `msedge --headless --disable-gpu --force-device-scale-factor`:
+
+- Kildefil: `board/assets/001/preview.html`
+- 1x: `board/assets/001/graytone-1x.png`
+- 2x: `board/assets/001/graytone-2x.png`
+
+Begge bildene viser samtlige fire nivåer, begge størrelser og begge
+bakgrunner i én fil. Datakurator bes godkjenne «skiller seg tydelig i
+gråtone» ut fra disse bildene, ikke ut fra beskrivelsen over.
 
 ### 6. Begrunnelse per nivå mot kravene
 
-**Bekreftet — trygg, ikke triumferende.** Grønn, men avmettet og med
-moderat (ikke maks) kontrast (6,67:1 — det laveste vi trengte var 4,5).
-Ingen glød, ingen stor flate. Haken er liten og rolig, ikke et stort
-"suksess"-checkmark. Formen (heltrukket, fylt sirkel) signaliserer
-"avsluttet/dokumentert" uten å rope det.
+**Bekreftet — stødig, ikke triumferende.** (Ordet «trygg» er tatt ut av denne
+begrunnelsen på datakurators anmodning — Bekreftet betyr at målene er
+verifisert, ikke at barnet er trygt, og ordet skal ikke brukes om noe
+tillitsnivå i grensesnittet.) Grønn, men avmettet og med moderat (ikke maks)
+kontrast (6,67:1 — det laveste vi trengte var 4,5). Ingen glød, ingen stor
+flate. Haken er liten og rolig, ikke et stort "suksess"-checkmark, og er nå
+skrevet inn som reservert for dette nivået alene (K5). Formen (heltrukket,
+fylt sirkel) signaliserer "avsluttet/dokumentert" uten å rope det.
 
-**Sannsynlig — synlig usikker.** Stiplet kant er det klareste "dette er ikke
-ferdig verifisert"-signalet vi har i grensesnittsspråk, og bølgelinjen leses
-som "omtrent/utledet". Kontrasten er fortsatt høy (6,14:1) — usikkerhet skal
-vises gjennom form, aldri gjennom å gjøre teksten vanskeligere å lese.
+**Sannsynlig — synlig usikker.** Stiplet kant, og nå en tydelig, større
+bølge (K2 — se pkt. 2/5), er de to formsignalene. Etiketten sier det også
+rett ut: «Sannsynlig · utledet» i listen, «Sannsynlig – utledet, ikke
+verifisert» i detalj (K1) — dette var påkrevd av CLAUDE.md og manglet i
+forrige versjon. Kontrasten er fortsatt høy (6,14:1) — usikkerhet skal vises
+gjennom form og tekst, aldri gjennom å gjøre teksten vanskeligere å lese.
 Fargen (blå) er valgt bevisst forskjellig fra både grønt og ravgult, slik at
 den ikke kan forveksles med "kommer"-merket (`--amber`) andre steder på
 siden.
 
 **Ikke testet — nøytral, ikke negativ.** Høyest kontrast av de fire
 (6,99:1), samme font-weight (600) som de andre — ingenting ved teksten er
-dempet. Ikonet er tomt (ufylt sirkel) og bruker en rett strek, ikke et
-spørsmålstegn eller kryss, for å unngå at "vi vet ikke" leses som et
-problem. Fargen er en lys, varm stein-/beige-tone hentet fra samme
-temperatur som `--mid`/`--bone`, ikke gråbrunt-dempet som dagens `--none`.
+dempet. Ikonet er nå en kraftig, tom ring uten noe tegn inni (K2) — den
+forrige rette streken er tatt bort fordi den kunne leses som "forbudt" eller
+"minus", altså et negativt svar vi ikke har grunnlag for. En tom form uten
+tegn er den mest nøytrale måten å vise "ingen data" på, og strøket er gjort
+tykt nok til at ringen ikke ser deaktivert ut. Fargen er en lys, varm
+stein-/beige-tone hentet fra samme temperatur som `--mid`/`--bone`, ikke
+gråbrunt-dempet som dagens `--none`.
 
 **Frarådes — utvetydig advarsel.** Eneste nivå med trekant (kategorisk
-formforskjell, ikke bare kantstil), tykkere kant (1,5px mot 1px), fylt
-flate og utropstegn — et etablert varselsymbol. Rød-oransje med god
-kontrast (5,72:1, det laveste av de fire, men fortsatt trygt over
-4,5:1-kravet). Skal alltid vises sammen med begrunnelse og kilde, jf.
+formforskjell fra alle de tre sirkel-baserte nivåene), fylt flate og
+utropstegn — et etablert varselsymbol. Rød-oransje med god kontrast (5,72:1,
+det laveste av de fire tekst/ikon-verdiene, men fortsatt med solid margin
+over 4,5:1-kravet). Skal alltid vises sammen med begrunnelse og kilde, jf.
 kravet i CLAUDE.md — det er tekstinnhold, ikke et tokenspørsmål, men nevnes
 her fordi merkelappen alene ikke er nok forklaring.
+
+## Datakurators vurdering
+
+**2026-09-22, datakurator. Resultat: VETO.** Kontrasten på «Ikke testet» er
+løst. Vetoet gjelder tre nye forhold: «Sannsynlig» er ikke merket som utledet,
+«Sannsynlig» og «Ikke testet» flyter sammen i 14px-ikonet, og tabellen over
+kantkontrast er feil. Alt kan løses i én runde (K1–K5 under).
+
+Kontrollberegning: jeg har regnet tallene i pkt. 4 og 5 på nytt i PowerShell
+(WCAG relativ luminans, alfa-komposittert mot `--ink` #141210, `--ink-2`
+#1D1A17, `--ink-3` #231F1B). Det som står om 14px-gjengivelse er utledet av
+SVG-geometrien. Jeg har ikke sett det rendret, og det skal heller ikke leses
+som om jeg har.
+
+| Nivå | Tekst mot egen bg (ink / ink-2 / ink-3) | Kant mot `--ink-2`, med alfa | UX oppga for kant |
+|---|---|---|---|
+| Bekreftet | 7,34 / 6,65 / 6,24 | **3,17:1** | 7,52:1 |
+| Sannsynlig | 6,75 / 6,13 / 5,75 | **2,50:1** | 6,13:1 |
+| Ikke testet | 7,70 / 6,98 / 6,54 | **2,83:1** | 6,32:1 |
+| Frarådes | 6,27 / 5,70 / 5,34 | **2,86:1** | 5,69:1 |
+
+Teksttallene stemmer med UX (avvik på ±0,03). Kanttallene stemmer ikke. UX har
+tydeligvis regnet kantfargen som ugjennomsiktig og sett bort fra alfaen, selv
+om leveransen sier «alfa-komposittert». Luminanskolonnen i pkt. 5 er også feil
+(Bekreftet er 0,512, ikke 0,378; Ikke testet er 0,501, ikke 0,466), men
+gråtoneverdiene 173–188 stemmer. `--dim` stemmer (5,27 / 4,89 / 4,62).
+
+### 1. Er vetovarselet om «Ikke testet» løst?
+
+**Ja, for det vetovarselet gjaldt.** Teksten og ikonet i «Ikke testet» har
+6,98:1 mot `--ink-2`. Det er høyest av de fire, og tallet er kontrollert. Alle
+nivåene har samme skriftvekt (600). Det opprinnelige kravet er oppfylt. Kanten
+på «Ikke testet» (2,83:1) ligger midt i feltet og er ikke svakest. Det er
+«Sannsynlig» som er svakest (2,50:1).
+
+### 2. Leses «Ikke testet» som nøytral?
+
+Fargen og teksten er nøytrale og ikke nedtonet. Det er riktig at ikonet ikke
+bruker spørsmålstegn eller kryss. **Den rette streken i sirkelen er likevel
+ikke nøytral nok:**
+- En sirkel med vannrett strek er formen til skiltet «innkjøring forbudt», og
+  vi kjenner den også som minus eller «fjern». Den kan leses som «passer ikke»,
+  altså et negativt svar vi ikke har grunnlag for. Det strider mot
+  akseptansekriteriet «ikke som feil eller advarsel». Siden har allerede et
+  forbudsikon (sirkel med skråstrek, linje 234), og det gjør lesningen
+  sterkere.
+- Ikonet har minst «blekk» av de fire: tomt, prikket og tynt. Ved 14px blir
+  prikkene ca. 1,1px med 2,4px mellomrom. Da kan ringen se blek ut, som et
+  deaktivert element. Teksten veier opp for det, men ikonet skal ikke gjøre
+  «Ikke testet» til det nivået øyet hopper over.
+
+### 3. Kan Bekreftet og Sannsynlig forveksles? Overdriver Sannsynlig?
+
+- **Bekreftet mot Sannsynlig:** Haken mot bølgen gir et reelt formskille, og
+  grønt mot blått holder også ved rød-grønn fargesvikt. På et raskt blikk er
+  jeg rimelig trygg på skillet mellom akkurat disse to. Men to av de tre
+  signalene UX oppgir er svakere enn beskrevet. Fyllgraden er 0,18 mot 0,12.
+  Det er ikke «fylt mot nesten tom», og forskjellen synes ikke. Kanten er
+  heltrukket mot stiplet, men den stiplede kanten har 2,50:1, og en stiplet
+  sirkel ved 14px (streker på ca. 1,8px) vil se nesten heltrukket ut. **Det
+  som faktisk skiller, er haken.**
+- **Sannsynlig mot Ikke testet (det egentlige problemet):** Bølgen har ca. 1,65
+  enheter fra topp til bunn i viewBox 20. Ved 14px blir det ca. 1,15px, like
+  mye som streken er tykk. Bølgen blir da en litt ujevn vannrett strek. Ved
+  14px i gråtone er begge ikonene da «sirkel med brutt kant og vannrett strek»,
+  med samme gråtone (175 mot 188). Et utledet svar og et manglende svar kan
+  altså forveksles i listevisningen.
+- **Overdriver Sannsynlig sikkerheten?** Utformingen gjør ikke det, men
+  etiketten gjør det. CLAUDE.md sier at Sannsynlig *alltid* skal merkes som
+  utledet. Ordet «Sannsynlig» alene leses lett som «ja, antakelig passer den».
+  Leveransen har ingen synlig markering av at svaret er utledet.
+
+### 4. Kan vi skille på form, kant og fyll i stedet for lysstyrke?
+
+**Prinsippet er akseptabelt.** Jeg er enig med UX: å skille på lysstyrke ville
+lage et falskt hierarki, og det er verre for tilliten. **I praksis er kriteriet
+ikke oppfylt ennå.** Kantsignalet har under 3:1 på tre av fire nivåer.
+Fyllsignalet er for svakt til å synes. Tegnene i Sannsynlig og Ikke testet
+flyter sammen ved 14px. Det eneste som holder sikkert, er trekanten (Frarådes)
+og haken (Bekreftet). Kriteriet er dessuten vurdert med argumenter, ikke med
+et bilde.
+
+### 5. Kan haken forveksles med logoen (009)?
+
+Ja. Begge er en enkel hake i en lukket ramme i `currentColor`. Det har
+betydning. Står logoen i navigasjonen, har hver side et «bekreftet»-merke før
+brukeren har valgt bil. Da mister haken i Bekreftet også verdien som eget
+signal. **Løsningen er å endre logoen i 009, ikke haken i 001.** Haken skal
+tilhøre Bekreftet alene, og ingen annen hake skal brukes noe sted på siden.
+Oppgave 001 blokkeres ikke av dette, men vetoet mot ekte data i 009 står.
+
+### 6. Konflikt med definisjonene i CLAUDE.md?
+
+- **Sannsynlig**, «skal alltid merkes som utledet»: dette er brudd, se K1.
+- **Ikke testet**, «skal aldri skjules, nedtones»: teksten er i orden. Ikonet
+  er i grenseland, se K2.
+- **Frarådes**, «alltid begrunnelse og kilde»: UX har nevnt det. Det følges
+  opp i implementasjonen.
+- **Bekreftet**: UX kaller det «trygg» i begrunnelsen. Bekreftet betyr at
+  setet er verifisert å passe, ikke at det er trygt. Ordet «trygg» skal aldri
+  stå i grensesnittet om et nivå. Det er ikke et vetopunkt, men skal ikke
+  følge med videre.
+
+### Krav til UX (én runde)
+
+- **K1. Sannsynlig skal vise at svaret er utledet.** Det skal stå som synlig
+  tekst i selve merkelappen, både i listen og i detaljvisningen, ikke bare
+  som tooltip. For eksempel «Sannsynlig · utledet» i listen og «Sannsynlig –
+  utledet, ikke verifisert» i detaljen. UX velger ordlyden, men ordet
+  «utledet», eller et like tydelig ord, skal stå der.
+- **K2. Ikke testet og Sannsynlig skal ha tegn som ikke kan forveksles ved
+  14px i gråtone.**
+  - Ikke testet: ingen vannrett strek alene, ingen minus, ingen ?, × eller !.
+    Ikonet skal ikke ha synlig mindre tyngde enn de tre andre. Tom ring uten
+    tegn er akseptabelt for meg, hvis ringen er kraftig nok til å ikke se
+    deaktivert ut.
+  - Sannsynlig: tegnet skal være tydelig bølget ved 14px, med minst ca. 2px
+    fra topp til bunn, eller et annet tegn, for eksempel «≈».
+- **K3. Rett kanttabellen med alfa inkludert.** Løs det på en av to måter:
+  (a) alle fire kantene får minst 3:1 mot `--ink` og `--ink-2`, eller
+  (b) leveransen slutter å bruke kantstilen som bærende signal, og da skal
+  ikonene alene skille nivåene i gråtone. Rett også luminanskolonnen i
+  pkt. 5. Påstanden om «fylt mot nesten tom» fjernes, eller fyllforskjellen
+  gjøres reell.
+- **K4. Legg ved rendret bevis.** Bilde av de fire merkelappene side om side,
+  helt i gråtone, i 14px (liste) og 18px (detalj), ved 1x og 2x
+  pikseltetthet, på `--ink` og `--ink-2`. Akseptansekriteriet «skiller seg
+  tydelig i gråtone» godkjennes på bildet, ikke på beskrivelsen.
+- **K5. Ingen hake noe annet sted enn i Bekreftet.** Det står som krav i
+  leveransen, slik at 009 og senere oppgaver kan vise til det.
+
+Når K1–K5 er levert, vurderer jeg på nytt med én gang. Tekstkontrasten og
+fargene i tokensettet kan stå som de er.
 
 ## Logg
 
@@ -310,3 +560,26 @@ her fordi merkelappen alene ikke er nok forklaring.
   vurdering av det. Klar for datakurator- og testervurdering. Kortet ikke
   flyttet.
 - 2026-09-22 PM: UX-leveranse mottatt. Sendt til datakurator for vurdering.
+- 2026-09-22 datakurator: VETO. Tidligere vetovarsel om «Ikke testet» er løst
+  (6,98:1, kontrollert). Nytt veto: Sannsynlig er ikke merket som utledet
+  (CLAUDE.md), tegnene i Sannsynlig og Ikke testet flyter sammen ved 14px, og
+  «Ikke testet»-streken kan leses som minus eller forbud. Kanttabellen er feil
+  fordi alfa er utelatt (reelt 2,50–3,17:1, ikke 5,7–8,1:1). Krav K1–K5 under
+  «Datakurators vurdering». Kortet ikke flyttet.
+- 2026-09-22 UX: rettet K1–K5 i «UX-leveranse» (oppdatert på stedet, ingen ny
+  seksjon). K1: «Sannsynlig» viser nå «· utledet» (liste) / «– utledet, ikke
+  verifisert» (detalj) i selve merkelappen. K2: ikonene for Sannsynlig
+  (tydelig bølge, ≥2px topp-bunn ved 14px) og Ikke testet (kraftig tom ring,
+  ingen strek/tegn) er tegnet om. K3: fant og rettet egen regnefeil — kanten
+  ble sammenlignet ugjennomsiktig i stedet for med alfa. Kantalfa er løftet
+  (Sannsynlig .5→.65, Ikke testet .55→.65, Frarådes .6→.70) slik at alle fire
+  nå har reelt ≥3:1 mot `--ink` og `--ink-2` (3,16–3,59:1); luminanskolonnen i
+  pkt. 5 er rettet til å stemme med datakurators kontrollberegning; påstanden
+  om «fylt mot nesten tom» er fjernet. K4: gråtone-skjermbilder rendret med
+  headless Edge (`--force-device-scale-factor`, `filter:grayscale(1)`), lagt
+  i `board/assets/001/` (`preview.html`, `graytone-1x.png`, `graytone-2x.png`)
+  — utenfor `site/`, ingen nye avhengigheter. K5: skrevet inn som krav at
+  haken er reservert for Bekreftet, med henvisning til konflikten med 009.
+  Ordet «trygg» er fjernet fra all omtale av Bekreftet. Fargene, tekst-
+  kontrasten og `--dim` er ikke endret. `site/` ikke rørt, kortet ikke
+  flyttet. Klar for ny vurdering fra datakurator.
