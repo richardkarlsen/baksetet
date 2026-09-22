@@ -38,3 +38,5 @@ Implementasjon i index.html. Egen oppgave.
   --none #8A827A, --no #D9796C) har nesten lik lysstyrke (~131–162 av 255 i gråtone).
   Uten fargesyn blir de vanskelige å skille. Kriteriet «skiller seg i gråtone» er
   altså ikke oppfylt i dag. Ta hensyn til dette.
+- 2026-09-22 PM: datakurator påpeker (006) at «Ikke testet» (`--none`) ser nedtonet ut
+  og har lavere kontrast enn de andre. Den skal være nøytral, ikke dempet.
