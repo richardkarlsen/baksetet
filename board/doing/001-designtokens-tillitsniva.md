@@ -309,3 +309,4 @@ her fordi merkelappen alene ikke er nok forklaring.
   form/kantstil/fyllgrad/ikon, ikke lysstyrke alene — se pkt. 5 for ærlig
   vurdering av det. Klar for datakurator- og testervurdering. Kortet ikke
   flyttet.
+- 2026-09-22 PM: UX-leveranse mottatt. Sendt til datakurator for vurdering.
