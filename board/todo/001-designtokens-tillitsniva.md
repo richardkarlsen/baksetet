@@ -34,3 +34,7 @@ Implementasjon i index.html. Egen oppgave.
 ## Logg
 
 - 2026-09-08 PM: opprettet
+- 2026-09-22 PM: tester fant i 004 at dagens farger (--ok #8FB865, --maybe #7BA7D4,
+  --none #8A827A, --no #D9796C) har nesten lik lysstyrke (~131–162 av 255 i gråtone).
+  Uten fargesyn blir de vanskelige å skille. Kriteriet «skiller seg i gråtone» er
+  altså ikke oppfylt i dag. Ta hensyn til dette.

@@ -64,3 +64,16 @@ Eget domene og DNS. Se oppgave 005.
   nå offentlig. Spurt eier om det skal ryddes.
 - 2026-09-22 PM: etter eiers godkjenning er forfatter-e-post byttet til privat
   adresse i hele historikken, og historikken er lagt ut på nytt (`fccb639`).
+- 2026-09-22 PM: eier har aktivert Pages, workflow kjører grønt. Flyttet til review, sendt til tester.
+- 2026-09-22 tester: Testet mot akseptansekriteriene, se rapport til PM. Alle
+  kriterier oppfylt bortsett fra "kan sendes inn" (uklart — ikke testet reelt
+  innsending, se anbefaling). Fant to funn utenfor oppgavens scope: (1)
+  kritisk — demo-forhåndsvisningen av bilvelgeren i seksjonen "Kommer" viser
+  oppdiktede, navngitte produkt-til-tillitsnivå-koblinger (f.eks. "Britax
+  Römer Dualfix" → "Frarådes" med begrunnelse) som visuelt er identiske med
+  ekte kompatibilitetsdata; (2) middels — de fire tillitsnivåfargene skiller
+  seg for lite i lysstyrke/gråtone til å være tydelige i gråskala/for
+  fargeblinde.
+- 2026-09-22 PM: tester har godkjent 7 av 8 kriterier. Tally «kan sendes inn» er uklart
+  fordi eier må sende inn én test selv. Står i review til det er gjort.
+  Funn: 006 (kritisk, demodata), gråtonefunn lagt til 001, 007 (og:image).
