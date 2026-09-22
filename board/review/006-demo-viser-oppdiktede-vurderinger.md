@@ -484,3 +484,4 @@ markeres likevel her siden føringen ber om at avvik synliggjøres:
   "izi" traff i "box-sizing"). Andre tekster på siden (hero, meta, stripe, seksjonstittel,
   påmelding) er ikke rørt — det er oppgave 008. Nivåfargene (`--ok/--maybe/--none/--no`, `.t-*`)
   er ikke rørt. Committet lokalt, ikke pushet. Klar for datakurators godkjenning og tester.
+- 2026-09-22 PM: lest diffen i 5e41c47. Den ser ut til å følge spesifikasjonen. Flyttet til review. Datakurator (godkjenning) og tester jobber parallelt. Ikke pushet.
