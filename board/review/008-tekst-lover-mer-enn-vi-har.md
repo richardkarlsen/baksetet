@@ -220,3 +220,21 @@ siden og skjemaet før kortet går til done.
   foran UX-forslaget der de er ulike. Scope er utvidet med `<title>`/`og:title`, avsnittet
   «Databasen bygges…» og Tally-skjemaet LZ2Qjj (tre tekster). Logo-funnet er skilt ut i 009.
   Føringen om brukermål er lagt i 002. Sendt til utvikler.
+- 2026-09-22 utvikler: Lagt inn datakurators eksakte tekster i `site/index.html` ordrett
+  (title/og:title, meta description, og:description, hero-sub, stripe 4a/4b,
+  seksjonstittel/ingress 5a/5b, påmelding p.mid/p.dim). `h1` og `.demo`-blokken urørt.
+  Hero-sub talt til 145 tegn nøyaktig som datakurator oppga; ingen fast høyde/overflow i
+  CSS rundt `.hero-in`/`.rise`, så ekstra linje ved ~380px gir en høyere hero, ikke brukket
+  layout. Committet lokalt, ikke pushet: commit `1ddc6031d4a9f9df9495d7199e0cfafff97ed02a`.
+  Tally-skjema LZ2Qjj: lastet inn, alle tre gamle tekster stemte ordrett med det datakurator
+  siterte. Endret og lagret (status PUBLISHED, uendret):
+  1. Intro-tekst (blokk d211f53a…): «Fortell hvilken bil du har, så måler vi den først.» →
+     «Fortell hvilken bil du har. Det hjelper oss å velge hvilke biler vi måler først.»
+  2. Plassholder i «Bilen din» (blokk ecd02dfb…): «Volvo XC90 2016» →
+     «Merke, modell, årsmodell og karosseri»
+  3. Takketekst (blokk bdfc2573…): «Bilen din står nå på listen over biler vi måler. Du
+     hører fra oss når tjenesten åpner.» → «Vi har notert bilen din. Du hører fra oss når
+     tjenesten åpner.»
+  Ingen felt, rekkefølge, logikk eller styling i Tally er endret. Kortet ikke flyttet,
+  ingen kriterier krysset av. Klar for datakurators og testers gjennomgang.
+- 2026-09-22 PM: lest diffen i 1ddc603. Tekstene står som datakurator ga dem. Flyttet til review. Datakurator (sjekker side + Tally) og tester jobber parallelt. Ikke pushet.
