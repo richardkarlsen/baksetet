@@ -26,12 +26,12 @@ Skriv om disse tekstene i `site/index.html`:
 
 ## Akseptansekriterier
 
-- [ ] Ingen tekst påstår at data, database eller åpne data finnes i dag
-- [ ] Ingen tekst lover sikkerhet eller at brukeren «slipper å gjette»
-- [ ] Ingen ja/nei-formuleringer om passform. De fire nivåene er ikke en ja/nei-vurdering.
-- [ ] Bunnteksten «Vi erstatter ikke prøvemontering...» beholdes
-- [ ] Datakurator har godkjent tekstene
-- [ ] Mobil (~380px) fungerer
+- [x] Ingen tekst påstår at data, database eller åpne data finnes i dag
+- [x] Ingen tekst lover sikkerhet eller at brukeren «slipper å gjette»
+- [x] Ingen ja/nei-formuleringer om passform. De fire nivåene er ikke en ja/nei-vurdering.
+- [x] Bunnteksten «Vi erstatter ikke prøvemontering...» beholdes
+- [x] Datakurator har godkjent tekstene
+- [x] Mobil (~380px) fungerer
 
 ## UX-leveranse
 
@@ -238,3 +238,18 @@ siden og skjemaet før kortet går til done.
   Ingen felt, rekkefølge, logikk eller styling i Tally er endret. Kortet ikke flyttet,
   ingen kriterier krysset av. Klar for datakurators og testers gjennomgang.
 - 2026-09-22 PM: lest diffen i 1ddc603. Tekstene står som datakurator ga dem. Flyttet til review. Datakurator (sjekker side + Tally) og tester jobber parallelt. Ikke pushet.
+- 2026-09-22 tester: Testet lokal `site/index.html` (commit 1ddc603, ikke pushet). Alle ni tekstene i «Datakurators vurdering» (hero-sub, meta description, og:description, stripe 4a/4b, seksjonstittel/ingress 5a/5b, påmelding p.mid/p.dim, title/og:title) stemmer tegn-for-tegn med datakurators eksakte tekst, inkl. guillemets. Tegnauelling (wc -m, UTF-8): meta description 152, og:description 110 (begge under 155). hero-sub 145 tegn som oppgitt. Målt 380px og 1280px i headless Edge via CDP (Emulation.setDeviceMetricsOverride, ikke --window-size som har et OS-vindusgulv på ~492px og ga falske tall først) med scrollWidth/clientWidth og getBoundingClientRect på alle berørte elementer: ingen vannrett scrolling, ingen tekst er klippet eller flyter over på noen av bredden. h1, `.demo`-blokken, bunnteksten «Vi erstatter ikke prøvemontering...», tokens/farger og logoen er urørt i diffen. Ingen nye eksterne avhengigheter. Godkjenning av selve tekstinnholdet er datakurators mandat og skjer parallelt — ikke vurdert av meg. RESULTAT: bestått (for testerens del av kriteriene). Ingen filer endret utover denne loggen.
+- 2026-09-22 datakurator: GODKJENT (innhold). Lest `site/index.html` i sin helhet (commit 1ddc603,
+  ingen senere endringer i `site/`) og Tally LZ2Qjj med `load_form` (ikke lagret, ikke endret).
+  Alle eksakte tekster står ordrett: title/og:title, meta description, og:description, hero-sub,
+  stripe 4a/4b, seksjonstittel og ingress 5a/5b, p.mid og p.dim i påmeldingen, og de tre
+  Tally-tekstene (innledning, plassholder, takketekst). Resten av skjemaet (tittel, «E-post»,
+  «navn@epost.no», «Bilen din», «Takk skal du ha.», knappen «Meld meg på») lover ingenting.
+  Ingen tekst igjen som lover data, database, åpne data eller sikkerhet vi ikke har. h1-vilkåret
+  er oppfylt: ny hero-sub står rett under. Innholdskriterier 1–4 OK. Kriteriet om min godkjenning
+  er oppfylt med dette. Mobil er testers ansvar. Ikke blokkerende, til PM: «Én e-post når vi
+  åpner. Ingenting annet» kolliderer med «sender vi måleinstruksen når den er klar», og skjemaet
+  lar ikke brukeren si at hen vil måle selv. Dette gjelder ikke fit-data og bør bli en egen
+  UX-oppgave. 009 (logoen) står fortsatt: jeg nedlegger veto mot at ekte fit-data vises før den
+  er løst. Kortet ikke flyttet.
+- 2026-09-22 PM: datakurator GODKJENT, tester bestått. Flyttet til done og publisert. E-postmotstriden er skilt ut i 010.
