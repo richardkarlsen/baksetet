@@ -23,15 +23,15 @@ dette prosjektet, men betyr at ingenting privat kan committes.
 
 ## Akseptansekriterier
 
-- [ ] `git init`, `.gitignore` og første commit med hele prosjektet inkludert `/board`
-- [ ] Repoet er offentlig
-- [ ] Pages aktivert, siden svarer på HTTPS på `github.io`-adressen
-- [ ] Hero-bildene (`bilder/hero.jpg`, `bilder/hero-mobil.jpg`) lastes korrekt,
+- [x] `git init`, `.gitignore` og første commit med hele prosjektet inkludert `/board`
+- [x] Repoet er offentlig
+- [x] Pages aktivert, siden svarer på HTTPS på `github.io`-adressen
+- [x] Hero-bildene (`bilder/hero.jpg`, `bilder/hero-mobil.jpg`) lastes korrekt,
       også på mobilbredde
-- [ ] Tally-embed (`LZ2Qjj`) laster og kan sendes inn fra den publiserte siden
-- [ ] Archivo fra Google Fonts laster uten blokkering
-- [ ] Ingen relative stier er brutt av at siden ligger i en undermappe
-- [ ] `README.md` i rota forklarer kort hva prosjektet er og at det er
+- [x] Tally-embed (`LZ2Qjj`) laster og kan sendes inn fra den publiserte siden
+- [x] Archivo fra Google Fonts laster uten blokkering
+- [x] Ingen relative stier er brutt av at siden ligger i en undermappe
+- [x] `README.md` i rota forklarer kort hva prosjektet er og at det er
       ikke-kommersielt
 
 ## Utenfor scope
@@ -77,3 +77,4 @@ Eget domene og DNS. Se oppgave 005.
 - 2026-09-22 PM: tester har godkjent 7 av 8 kriterier. Tally «kan sendes inn» er uklart
   fordi eier må sende inn én test selv. Står i review til det er gjort.
   Funn: 006 (kritisk, demodata), gråtonefunn lagt til 001, 007 (og:image).
+- 2026-09-22 PM: eier sendte inn en test fra den publiserte siden. Den er registrert i Tally (innsending 1W5p9db, 22:32). Alle kriterier er oppfylt, flyttet til done.
