@@ -20,12 +20,12 @@ Skal passe inn i den mørke koksgrå paletten uten å bli neon.
 
 ## Akseptansekriterier
 
-- [ ] Hex-verdier oppgitt for bakgrunn, kant, tekst og ikon per nivå
-- [ ] Alle fire skiller seg tydelig fra hverandre i gråtone
-- [ ] Kontrast minst WCAG AA mot mørk bakgrunn
-- [ ] Hvert nivå har form/ikon i tillegg til farge
-- [ ] "Ikke testet" leses som nøytral, ikke som feil eller advarsel
-- [ ] Levert som CSS-variabler utvikler kan lime rett inn
+- [x] Hex-verdier oppgitt for bakgrunn, kant, tekst og ikon per nivå
+- [x] Alle fire skiller seg tydelig fra hverandre i gråtone
+- [x] Kontrast minst WCAG AA mot mørk bakgrunn
+- [x] Hvert nivå har form/ikon i tillegg til farge
+- [x] "Ikke testet" leses som nøytral, ikke som feil eller advarsel
+- [x] Levert som CSS-variabler utvikler kan lime rett inn
 
 ## Utenfor scope
 
@@ -113,7 +113,7 @@ unntaksregel — den arver bare det oppdaterte tokenet.
 merkelappen (ikonet bruker `currentColor` — ingen egen ikonfarge-variabel
 trengs, det arver nivåfargen).
 
-**Bekreftet** — sirkel, heltrukket kant, fylt indre, hake. (Stødig, avsluttet.)
+**Bekreftet** — hel omriss-sirkel med hake. (Stødig, avsluttet.) Svakt fyll (0,18) er teknisk til stede, men leses ikke som fylt. Ikonet skal ALDRI gjøres om til en fylt sirkel.
 ```html
 <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true">
   <circle cx="10" cy="10" r="8" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.6"/>
@@ -125,7 +125,7 @@ trengs, det arver nivåfargen).
 bølge ("omtrent"/"≈"). Forrige versjon hadde en bølge på ca. 1,65 enheter
 topp-bunn i viewBox 20 — ved 14px ble det under 1,2px, og bølgen så ut som en
 rett strek, umulig å skille fra «Ikke testet». Ny bølge går fra y=8 til y=15,
-altså 7 enheter i viewBox 20. Ved 14px (skala 0,7) blir det ca. 4,9px
+altså ca. 5,2 enheter mellom kurvetoppene i viewBox 20. Ved 14px blir det ca. 3,7px (kontrollert av datakurator)
 topp-bunn — godt over K2s krav på ca. 2px. Strøket er også gjort tykkere
 (1,6 → 2,0) for lik visuell tyngde som de andre ikonene.
 ```html
@@ -144,8 +144,8 @@ har minst "blekk" av de fire ikonene og kan se deaktivert/svak ut — stikk i
 strid med at «Ikke testet» skal være nøytral, ikke dempet. Løsningen er en
 tom ring uten tegn, men med kraftig strøk (stroke-width 2,8 — tykkere enn
 noen av de andre ikonenes enkeltstrøk), slik at den ikke er "svakere" enn de
-andre rent visuelt. Fyllgrad null er meningsbærende her: en tom form for et
-tomt datapunkt.
+andre rent visuelt.
+
 ```html
 <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true">
   <circle cx="10" cy="10" r="7.6" fill="none" stroke="currentColor" stroke-width="2.8"/>
@@ -165,7 +165,7 @@ silhuett), fylt, tykkere kant, utropstegn.
 Alle ikoner er dekorative (`aria-hidden="true"`) — teksten i merkelappen
 ("Bekreftet" osv.) er det tilgjengelige navnet, ikke ikonet.
 
-**K5 — krav: haken (fylt sirkel + hakemerke) er reservert for Bekreftet.**
+**K5 — krav: haken er reservert for Bekreftet, uansett ramme (sirkel, skjold eller ingen ramme).**
 Ingen annet ikon, logo eller UI-element på baksetet.no skal bruke en hake i
 lukket ramme i `currentColor`. Datakurator har påpekt at forslaget til logo i
 oppgave 009 bruker nøyaktig samme form (enkel hake i en lukket ramme), noe
@@ -333,7 +333,7 @@ Derfor skiller ikke dette forslaget nivåene primært på lysstyrke. Slik
 skilles de i ren gråtone, i hovedsak via form/ikon, med kanten (nå reelt
 ≥3:1, pkt. 4) som sekundær forsterkning:
 
-- **Bekreftet**: sirkel, heltrukket kant, fylt midtflate, hake-tegn.
+- **Bekreftet**: hel omriss-sirkel med hake.
 - **Sannsynlig**: sirkel, stiplet kant, svakt fylt, tydelig bølge/"≈"
   (revidert i K2 — se pkt. 2 for hvorfor forrige bølge var for flat).
 - **Ikke testet**: sirkel, hel kant men kraftigere strøk enn de andre, INGEN
@@ -368,13 +368,13 @@ gråtone» ut fra disse bildene, ikke ut fra beskrivelsen over.
 ### 6. Begrunnelse per nivå mot kravene
 
 **Bekreftet — stødig, ikke triumferende.** (Ordet «trygg» er tatt ut av denne
-begrunnelsen på datakurators anmodning — Bekreftet betyr at målene er
-verifisert, ikke at barnet er trygt, og ordet skal ikke brukes om noe
+begrunnelsen på datakurators anmodning — Bekreftet betyr at setet er fysisk montert i bilen eller oppført i produsentens egen fit-liste,
+ikke at barnet er trygt, og ordet skal ikke brukes om noe
 tillitsnivå i grensesnittet.) Grønn, men avmettet og med moderat (ikke maks)
 kontrast (6,67:1 — det laveste vi trengte var 4,5). Ingen glød, ingen stor
 flate. Haken er liten og rolig, ikke et stort "suksess"-checkmark, og er nå
 skrevet inn som reservert for dette nivået alene (K5). Formen (heltrukket,
-fylt sirkel) signaliserer "avsluttet/dokumentert" uten å rope det.
+omriss-sirkel med hake) signaliserer "avsluttet/dokumentert" uten å rope det.
 
 **Sannsynlig — synlig usikker.** Stiplet kant, og nå en tydelig, større
 bølge (K2 — se pkt. 2/5), er de to formsignalene. Etiketten sier det også
@@ -405,6 +405,90 @@ kravet i CLAUDE.md — det er tekstinnhold, ikke et tokenspørsmål, men nevnes
 her fordi merkelappen alene ikke er nok forklaring.
 
 ## Datakurators vurdering
+
+### Runde 2 (2026-09-22, datakurator): GODKJENT, med tekstrettelser (R1–R3)
+
+Tokensettet, ikonene og etikettene er godkjent. Vetoet fra runde 1 er
+opphevet. R1–R3 under er rettelser i beskrivelsen, ikke i tokens eller
+ikoner. PM kan kontrollere dem uten ny runde hos meg, men de skal være gjort
+før kortet går til utvikler. Grunnen er at to av dem ellers kan føre utvikler
+eller neste oppgave i feil retning.
+
+**Kontrollberegning** med samme metode som i runde 1 (PowerShell, WCAG,
+alfa-komposittert):
+
+| Nivå | Tekst (ink / ink-2 / ink-3) | Kant ink-2 / ink | UX oppga for kant |
+|---|---|---|---|
+| Bekreftet | 7,34 / 6,65 / 6,24 | 3,17 / 3,24 | 3,16 / 3,26 |
+| Sannsynlig | 6,75 / 6,13 / 5,75 | 3,34 / 3,46 | 3,35 / 3,46 |
+| Ikke testet | 7,70 / 6,98 / 6,54 | 3,43 / 3,55 | 3,44 / 3,55 |
+| Frarådes | 6,27 / 5,70 / 5,34 | 3,44 / 3,58 | 3,42 / 3,59 |
+
+Alt stemmer innenfor ±0,03. Alle kanter er ≥3:1 mot `--ink` og `--ink-2`.
+Tokens og SVG i `board/assets/001/preview.html` er identiske med leveransen,
+så bildene viser det som faktisk er levert. Ett avvik: bølgen i Sannsynlig
+er ikke ca. 4,9px høy. Kurvetoppene ligger på y≈8,9 og y≈14,1, altså ca. 5,2
+enheter, som gir ca. 3,7px ved 14px. Det er fortsatt godt over kravet på
+ca. 2px.
+
+**K1–K5, kontrollert mot bildene** (`graytone-1x.png` og `graytone-2x.png`,
+som jeg har sett selv):
+- **K1 oppfylt.** «Sannsynlig · utledet» og «Sannsynlig – utledet, ikke
+  verifisert» står i selve merkelappen med samme farge og vekt.
+- **K2 oppfylt.** Ved 14px og 1x er bølgeikonet litt uklart, men det kan ikke
+  forveksles med den tomme ringen. Stiplet kant mot hel kant og ordet
+  «utledet» skiller også.
+- **K3 oppfylt.** Se tabellen over.
+- **K4 oppfylt.** Gråtonekriteriet er oppfylt i praksis. Alle fire kan
+  skilles på ikonet alene ved 14px og 1x: hake, bølge, tom ring og trekant.
+- **K5 oppfylt i regelteksten.** Parentesen må rettes, se R2.
+
+**(a) Er det greit at «Ikke testet» er visuelt sterkest?** Ja, fra mitt
+ståsted. En tydelig «vi vet ikke» fører brukeren mot forsiktighet. Den
+overdriver ikke sikkerheten, og det er motsatt av problemet vi hadde i
+runde 1. Det er også det vanligste nivået, siden alt starter der, så det skal
+ikke kunne overses. En sterk ring overdriver ikke noe. Den eneste måten dette
+kan trekke blikket feil vei på, er hvis Frarådes drukner. I gråtone er
+Ikke testet noe tyngre enn Frarådes. Frarådes har likevel den eneste
+trekanten og er i farger det eneste varme, mettede nivået. Det holder for
+godkjenning av tokens. Det skal verifiseres i en realistisk liste, se
+kravene til implementasjonen under.
+
+**(b) Stemmer beskrivelsen av Bekreftet med bildet?** Nei. SVG-en har
+`fill-opacity="0.18"`, men på bildet ser ikonet ut som en omriss-sirkel med
+hake. Fyllet er ikke synlig, verken ved 1x eller 2x. Det samme gjelder
+Sannsynlig (0,12) og Frarådes (0,18). Beskrivelsen sier likevel «fylt» flere
+steder, og det må rettes (R1). Selve ikonet er godt slik det ser ut.
+
+**Rettelser før overlevering til utvikler (PM kontrollerer):**
+- **R1.** Bekreftet skal ikke beskrives som «fylt» (pkt. 2, K5-avsnittet,
+  pkt. 5 og pkt. 6). Den skal beskrives som «hel omriss-sirkel med hake».
+  Påstanden om at «fyll null er meningsbærende» for Ikke testet i
+  innledningen og pkt. 2 fjernes, siden ingen av fyllene synes. Grunn: en
+  utvikler som leser «fylt», kan «rette» ikonet til en fylt grønn sirkel, og
+  da blir Bekreftet mer triumferende enn godkjent.
+- **R2.** K5 skal definere det reserverte merket som *haken*, uansett ramme
+  (sirkel, skjold eller ingen ramme), ikke som «fylt sirkel + hakemerke».
+  Grunn: med dagens parentes kan logoen i 009 (skjold med hake) hevdes å falle
+  utenfor. Setningen etter parentesen er riktig og beholdes.
+- **R3.** Pkt. 6 sier «Bekreftet betyr at målene er verifisert». Det er feil
+  mot definisjonen. Bekreftet betyr at setet er fysisk montert og verifisert
+  i den konkrete bilen, eller oppført i produsentens egen fit-liste. At målene
+  stemmer, er grunnlaget for **Sannsynlig**. Rett også tallet for bølgehøyden
+  (ca. 3,7px, ikke 4,9px).
+
+**Krav som skal inn i implementasjonsoppgaven (ikke blokkerende for 001):**
+- Ordet «utledet» i Sannsynlig skal aldri klippes, skjules eller kortes ned
+  med «…» på smal skjerm (360px). Heller linjebryting enn `nowrap` med
+  klipping.
+- Tester skal se på en realistisk liste der de fleste radene er
+  «Ikke testet», med én «Frarådes» og én «Bekreftet», både i farger og i
+  gråtone. Frarådes skal fortsatt være det første øyet fanger. Hvis ikke, går
+  saken tilbake til UX for å justere ringtykkelsen i Ikke testet.
+- Vetoet mot ekte fit-data på grunn av logoen (009) står fortsatt, uavhengig
+  av denne godkjenningen.
+
+### Runde 1 (historikk)
 
 **2026-09-22, datakurator. Resultat: VETO.** Kontrasten på «Ikke testet» er
 løst. Vetoet gjelder tre nye forhold: «Sannsynlig» er ikke merket som utledet,
@@ -566,6 +650,13 @@ fargene i tokensettet kan stå som de er.
   «Ikke testet»-streken kan leses som minus eller forbud. Kanttabellen er feil
   fordi alfa er utelatt (reelt 2,50–3,17:1, ikke 5,7–8,1:1). Krav K1–K5 under
   «Datakurators vurdering». Kortet ikke flyttet.
+- 2026-09-22 datakurator: runde 2 GODKJENT. K1–K5 er kontrollert mot
+  gråtonebildene, og kontrasttallene er regnet på nytt (kanter 3,17–3,58:1,
+  stemmer). Vetoet fra runde 1 er opphevet. Tre tekstrettelser (R1: Bekreftet
+  er ikke «fylt», R2: K5 skal reservere haken uansett ramme, R3: Bekreftet er
+  ikke «målene verifisert», og bølgen er 3,7px) skal være gjort før kortet går
+  til utvikler. PM kontrollerer dem. To krav skal inn i
+  implementasjonsoppgaven. Vetoet i 009 står. Kortet ikke flyttet.
 - 2026-09-22 UX: rettet K1–K5 i «UX-leveranse» (oppdatert på stedet, ingen ny
   seksjon). K1: «Sannsynlig» viser nå «· utledet» (liste) / «– utledet, ikke
   verifisert» (detalj) i selve merkelappen. K2: ikonene for Sannsynlig
@@ -583,3 +674,4 @@ fargene i tokensettet kan stå som de er.
   Ordet «trygg» er fjernet fra all omtale av Bekreftet. Fargene, tekst-
   kontrasten og `--dim` er ikke endret. `site/` ikke rørt, kortet ikke
   flyttet. Klar for ny vurdering fra datakurator.
+- 2026-09-22 PM: datakurator GODKJENT i runde 2. PM har gjort rettelsene R1–R3 i UX-leveransen (beskrivelsen av Bekreftet er nå «hel omriss-sirkel med hake», K5 reserverer haken uansett ramme, definisjonen av Bekreftet er rettet, bølgehøyden er 3,7px). Kriteriene er verifisert av datakurator (kontrast regnet på nytt, gråtonebilder vurdert). Flyttet til done. Implementasjonen er oppgave 011.
