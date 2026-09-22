@@ -57,3 +57,10 @@ Eget domene og DNS. Se oppgave 005.
   ledende skråstrek — ingen endring nødvendig der. Bekreftet at repoet er
   offentlig via API. Pages er ikke aktivert ennå (Settings → Pages → Source:
   GitHub Actions gjenstår, kun eier kan gjøre det) — se sammendrag til PM.
+- 2026-09-22 PM: verifisert commit `bd72733`: workflow bruker kun offisielle
+  actions og publiserer `site/`, README er OK, repoet er offentlig. Pages er ikke
+  aktivert (404). Venter på at eier gjør klikket Settings → Pages → Source: GitHub Actions.
+  Oppdaget: begge commits har jobb-e-post som forfatter, og den er
+  nå offentlig. Spurt eier om det skal ryddes.
+- 2026-09-22 PM: etter eiers godkjenning er forfatter-e-post byttet til privat
+  adresse i hele historikken, og historikken er lagt ut på nytt (`fccb639`).
