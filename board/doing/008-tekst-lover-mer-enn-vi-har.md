@@ -36,3 +36,4 @@ Skriv om disse tekstene i `site/index.html`:
 ## Logg
 
 - 2026-09-22 PM: opprettet etter funn fra datakurator i 006.
+- 2026-09-22 PM: eier ba om å starte. Flyttet til doing, delegert til UX.

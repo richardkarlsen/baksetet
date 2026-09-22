@@ -45,3 +45,4 @@ Implementasjon i index.html. Egen oppgave.
   ca. 3,9:1, mot 4,8–6,0:1 for de andre. Oppgaven blokkerer altså ekte data.
 - 2026-09-22 PM: tester (006) fant at `.pick small` (feltnavnene i bilvelgeren) bruker `--dim` på `--ink`,
   som gir ca. 3,3:1, under AA. Tokenet `--dim` bør vurderes samlet her.
+- 2026-09-22 PM: eier ba om å starte. Flyttet til doing, delegert til UX.
