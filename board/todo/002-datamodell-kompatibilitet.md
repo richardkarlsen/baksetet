@@ -34,3 +34,6 @@ Selve datainnsamlingen. Egen oppgave per bil.
 ## Logg
 
 - 2026-09-08 PM: opprettet
+- 2026-09-22 PM: føring fra datakurator (008): mål fra brukere kan ikke brukes før vi har
+  en måleprotokoll og en kvalitetskontroll. Fram til da gir de ikke engang «Sannsynlig».
+  Aldri «Bekreftet».
